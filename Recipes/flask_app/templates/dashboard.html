@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Recipes</title>
+</head>
+<body>
+    <header class="d-flex flex-row justify-content-between">
+        <h1>Welcome {{user.first_name}}</h1>
+        <div class="nav">
+            <nav>
+                <nav>
+                    <a href="./{{user.id}}/newRecipe">Create</a>
+                    <a href="/logout">Logout</a>
+                </nav>
+            </nav>
+        </div>
+    </header>
+    <main class="bg-secondary d-flex flex-column">
+        <p text-light>Here are the Recipes</p>
+        <table class="table table-dark tabled-striped w-75">
+            <thead class="border-bottom">
+                <th class="w-25">Name</th>
+                <th class="w-25">Under 30 Minutes?</th>
+                <th class="w-25">Actions</th>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td class="w-25">{{recipe.name}}</td>
+                        <td class="w-25">{{recipe.under30}}</td>
+                        <td class="w-25 p-5"><a href="#" class="m-1">View Instructions</a><a herf="/edit" class="m-1">edit</a><a href="/delete" class="m-1">delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

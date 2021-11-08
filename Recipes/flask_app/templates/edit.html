@@ -9,14 +9,14 @@
 </head>
 <body class="d-flex bg-dark flex-column mx-auto">
     <div class="d-flex bg-light flex-row justify-content-between">
-        <h1>Add New Recipe</h1>
+        <h1>Edit Recipe</h1>
         <nav>
             <a href="/dashboard">Dashboard</a>
             <a href="/logout" class="ml-3">Logout</a>
         </nav>
     </div>
     <div id="content bg-dark w-75 h-auto p-5">
-        <form action="/recipes/new/create" method="post" class="col-8 p-5 m-5 text-light">
+        <form action="/recipes/update/{{recipe.id}}" method="post" class="col-8 p-5 m-5 text-light">
             
             <input type="number" value="{{user.id}}" hidden name="user_id">
             {% with messages = get_flashed_messages() %}
@@ -34,31 +34,38 @@
                     <div class="form-group">
                         
                         <label for="name">Recipe Name:</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" value="{{recipe.name}}">
                     </div>
                     <div class="form-group">
                         <label for="description">Description:</label>
-                        <textarea name="description" class="form-control overflow-scroll"></textarea>
+                        <textarea name="description" class="form-control overflow-scroll">{{recipe.description}}"</textarea>
                     </div>
                     <div class="form-group">
                         <label for="instructions">Instructions:</label>
-                        <textarea name="instructions" class="form-control overflow-scroll"></textarea>
+                        <textarea name="instructions" class="form-control overflow-scroll">{{recipe.instructions}}</textarea>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="d-flex flex-column form-group">
-                        <label for="date_made_on">Date Made On:</label>
-                        <input type="date" name="date_made_on" id="creation_date">
+                        <p><label for="date_made_on" class="text-light">Date Created: {{recipe.date_made_on}}</label></p>
                     </div>
                     <div class="form-group">
-                        <label for="under30">Under 30 Minutes?</label>
-                        <div class="form-group-text bg-dark">
-                            <input type="radio" name="under30" value="no" id="">
-                            <label for="no" class="text-warning">No</label>
-                        </div>
-                        <div class="form-group-text bg-dark">
-                            <input type="radio" name="under30" value="yes" id="">
-                            <label for="yes" class="text-warning">Yes</label>
+                        
+                        <div class="form-group-text d-flex flex-column bg-dark">
+                            <label for="">Under 30 minutes?</label>
+                            {% if recipe.under30 == "yes" %}
+                                <label for="">Yes</label>
+                                <input type="radio" name="under30" value="yes" checked>
+                                <label for="">No</label>
+                                <input type="radio" name="under30" value="no">
+                            {% else %}
+                                <label for="">Yes</label>
+                                <input type="radio" name="under30" value="yes">
+                                <label for="">No</label>
+                                <input type="radio" name="under30" value="no" checked>
+                            {% endif %}
+                            
+
                         </div>
                         <br>
                         <input type="submit" value="Edit Recipe" class="btn btn-primary">

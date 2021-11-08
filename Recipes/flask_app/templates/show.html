@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Recipes</title>
+</head>
+<body>
+    <header class="d-flex flex-row justify-content-between">
+        <h1>Welcome {{user.first_name}}</h1>
+        <div class="nav">
+            <nav>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/logout">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main class="bg-secondary d-flex flex-column">
+        <h1>Recipe Name</h1>
+        <div class="d-flex flex-column bg-dark border-dark text-light">
+            <div class="d-flex flex-row justify-content-between p-4 w-25">
+                <label for="">Description:</label>
+                <p style="padding-right: 30%;" class="text-left">{{recipe.description}}</p>
+            </div>
+            <div class="d-flex flex-row justify-content-between p-4 w-25">
+                <label for="">Under 30 minutes:</label>
+                <p style="padding-right: 30%;" class="text-left">{{recipe.under30}}</p>
+            </div>
+            <div class="d-flex flex-row justify-content-between p-4 w-25">
+                <label for="">Instructions:</label>
+                <p style="padding-right: 30%;" class="text-left">{{recipe.description}}</p>
+            </div>
+            <div class="d-flex flex-row justify-content-between p-4 w-25">
+                <label>Date Made:</label>
+                <p style="padding-right: 30%;" class="text-left">{{recipe.date_made_on}}</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h4 class="text-center">Made by Claude J Will</h4>
+    </footer>
+</body>
+</html>

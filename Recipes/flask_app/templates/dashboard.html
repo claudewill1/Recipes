@@ -13,10 +13,10 @@
         <h1>Welcome {{user.first_name}}</h1>
         <div class="nav">
             <nav>
-                <nav>
-                    <a href="./{{user.id}}/newRecipe">Create</a>
+                
+                    <a href="/dashboard/{{user.id}}/newRecipe">Create</a>
                     <a href="/logout">Logout</a>
-                </nav>
+                
             </nav>
         </div>
     </header>
@@ -33,7 +33,11 @@
                     <tr>
                         <td class="w-25">{{recipe.name}}</td>
                         <td class="w-25">{{recipe.under30}}</td>
-                        <td class="w-25 p-5"><a href="#" class="m-1">View Instructions</a><a herf="/edit" class="m-1">edit</a><a href="/delete" class="m-1">delete</a></td>
+                        <td class="w-25">
+                            <a href="/recipes/view/{{recipe.id}}">View Instructions</a>
+                            <a href="/recipes/edit/{{recipe.id}}">Edit</a>
+                            <a href="/recipes/delete/{{recipe.id}}">Delete</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

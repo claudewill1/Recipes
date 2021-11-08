@@ -6,6 +6,7 @@ class Recipe:
     db = "recipes_schema"
     def __init__(self,data) -> None:
         self.id = data["id"]
+        self.user_id = data["user_id"]
         self.name = data["name"]
         self.under30 = data["under30"]
         self.description = data["description"]
@@ -44,6 +45,22 @@ class Recipe:
         return recipes
 
     @classmethod
+    def getRecipeById(cls,id):
+        query = "SELECT * FROM recipes AS r LEFT JOIN users AS u ON r.user_id = u.id WHERE r.id = %(id)s;"
+        results = connectToMySQL(cls.db).query_db(query,id)
+        print(results)
+        recipe = {
+            "id": results[0]["id"],
+            "user_id": results[0]["user_id"],
+            "name": results[0]["name"],
+            "description": results[0]["description"],
+            "instructions": results[0]["instructions"],
+            "under30": results[0]["under30"],
+            "date_made_on": results[0]["date_made_on"]
+        }
+        return recipe
+
+    @classmethod
     def getOneRecipeByUserId(cls,id):
         query = "SELECT * FROM recipes AS r LEFT JOIN users AS u ON u.id = r.user_idWHERE u.id = %(id)s ORDER BY r.id LIMIT 1);"
         data = {
@@ -55,9 +72,12 @@ class Recipe:
         return cls(results[0])
 
     @classmethod
-    def updateRecipe(cls,data):
-        query = "UPDATE TABLE recipes SET name = %(name)s,under30minutesYesOrNo = %(under30minutesYesOrNo)s,description = %(description)s,instructions = %(instructions)s;"
-        return connectToMySQL(cls.db).query_db(query,data)
+    def updateRecipe(cls, data):
+        query = "UPDATE recipes SET user_id = %(user_id)s, name = %(name)s, description = %(description)s, instructions = %(instructions)s, under30 = %(under30)s, updated_at = NOW() WHERE recipes.id = %(id)s;"
+
+        recipe_id = connectToMySQL('recipes_schema').query_db(query, data)
+        
+        return recipe_id
 
     @classmethod 
     def deleteRecipe(cls,id):
@@ -78,7 +98,4 @@ class Recipe:
             isValid = False
         if len(recipe["instructions"]) < 3:
             flash("Instructions cannot be blank and must have at least 3 characters.")
-        if not recipe["date_made_on"]:
-            isValid = False
-            flash("Must set data")
         return isValid
